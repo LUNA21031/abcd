@@ -13,7 +13,7 @@ import xml.etree.ElementTree as ET
 
 URL = "https://apis.data.go.kr/6300000/rest/getTrafficInfoAll"
 
-API_KEY = "30c53e1fe97474efe2d0f1d0b45e31a1f25d7dfc3b87336c74c255a9a1fef90e"
+API_KEY = os.environ["DATA_API_KEY"]
 
 
 # 나중에 분석 대상으로 선정한 링크 ID 입력
@@ -26,7 +26,7 @@ TARGET_LINK_IDS = [
 
 
 # CSV 저장 위치
-SAVE_FOLDER = r"C:\traffic_project"
+SAVE_FOLDER = "data"
 SAVE_FILE = os.path.join(
     SAVE_FOLDER,
     "traffic_raw.csv"
