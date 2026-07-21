@@ -17,11 +17,27 @@ API_KEY = os.environ["DATA_API_KEY"]
 
 
 # 나중에 분석 대상으로 선정한 링크 ID 입력
-# 아직 선정 전이면 일단 테스트용 링크 몇 개만 넣어도 됩니다.
 TARGET_LINK_IDS = [
-    "1830000100",
-    "1830000200",
-    "1830000301"
+    "1870042802",
+    "1870042900",
+    "1870043000",
+    "1870043100",
+    "1870045800",
+    "1870045900"
+    "1870053402",
+    "1870053500",
+    "1870494500",
+    "1870494600",
+    "1870023700",
+    "1870024600",
+    "1870491901",
+    "1870492000",
+    "1870500101",
+    "1870500201",
+    "1870500301",
+    "1870500401",
+    "1870002501",
+    "1870002601"
 ]
 
 
@@ -29,7 +45,7 @@ TARGET_LINK_IDS = [
 SAVE_FOLDER = "data"
 SAVE_FILE = os.path.join(
     SAVE_FOLDER,
-    "traffic_raw.csv"
+    "traffic_main_raw.csv"
 )
 
 
@@ -82,6 +98,20 @@ if df.empty:
 # =====================================================
 
 df["linkID"] = df["linkID"].astype(str)
+
+# 선택한 20개 링크가 실제 API 응답에 모두 존재하는지 확인
+found_ids = set(df["linkID"].astype(str))
+target_ids = set(TARGET_LINK_IDS)
+
+missing_ids = target_ids - found_ids
+
+print(f"요청 링크 수: {len(target_ids)}")
+print(f"API에서 확인된 링크 수: {len(target_ids) - len(missing_ids)}")
+
+if missing_ids:
+    print("API에서 찾지 못한 링크 ID:")
+    for link_id in sorted(missing_ids):
+        print(link_id)
 
 df = df[
     df["linkID"].isin(TARGET_LINK_IDS)
